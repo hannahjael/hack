@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hello — Hannah Jael A</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1: #ffecd2;
+      --bg2: #fcb69f;
+      --card: rgba(255,255,255,0.85);
+      --accent: #5b21b6;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    body{
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      display:flex;align-items:center;justify-content:center;padding:32px;
+    }
+    .card{
+      width:100%;max-width:880px;border-radius:20px;padding:48px 40px;background:var(--card);
+      box-shadow:0 10px 30px rgba(16,24,40,0.15);backdrop-filter: blur(6px);
+      display:grid;grid-template-columns:1fr 320px;gap:28px;align-items:center;
+    }
+    .greeting{align-self:center}
+    h1{margin:0;font-size:48px;line-height:1.02;color:#111827;letter-spacing:-0.02em}
+    p.lead{margin:12px 0 22px;color:#374151;font-size:18px}
+    .badge{display:inline-block;padding:8px 12px;border-radius:999px;background:linear-gradient(90deg,#ffffff77,#ffffff44);font-weight:600;font-size:13px;color:var(--accent);border:1px solid rgba(0,0,0,0.04)}
+    .meta{font-size:13px;color:#6b7280;margin-top:8px}
+    .right{
+      display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.6),rgba(255,255,255,0.35));border:1px solid rgba(0,0,0,0.03)
+    }
+    .avatar{
+      width:120px;height:120px;border-radius:20px;background:linear-gradient(135deg,#8b5cf6,#06b6d4);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:28px;box-shadow:0 6px 18px rgba(99,102,241,0.18)
+    }
+    .small{font-size:14px;color:#334155;margin-top:12px;text-align:center}
+    .btn{margin-top:18px;padding:10px 16px;border-radius:10px;border:none;background:var(--accent);color:white;font-weight:700;cursor:pointer;font-size:14px;box-shadow:0 6px 18px rgba(91,33,182,0.18)}
+    .sparkles{position:absolute;inset:0;pointer-events:none}
+
+    /* responsive */
+    @media (max-width:820px){
+      .card{grid-template-columns:1fr;gap:18px;padding:28px}
+      h1{font-size:36px}
+    }
+
+    /* subtle float animation */
+    .card{transform:translateY(0);animation:float 6s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-8px)}100%{transform:translateY(0)}}
+  </style>
+</head>
+<body>
+  <div class="card" role="main" aria-label="Greeting card">
+    <div class="greeting">
+      <span class="badge">Hey there</span>
+      <h1>Hello — I'm <span style="color:var(--accent)">Hannah Jael A</span></h1>
+      <p class="lead">Welcome to my little page. This is a clean, responsive HTML snippet made just for you — perfect for a quick intro or link in your portfolio.</p>
+      <div class="meta">Made with ❤️ · Single-file HTML · Resize the window to see responsive behavior</div>
+    </div>
+
+    <div class="right">
+      <div class="avatar" aria-hidden="true">HJ</div>
+      <div class="small">Computer Science • Creator • Learner</div>
+      <button class="btn" onclick="copyHTML()">Copy HTML to clipboard</button>
+      <div class="meta" style="margin-top:10px">Or save this file as <code>hello_hannah_jael.html</code></div>
+    </div>
+  </div>
+
+  <script>
+    async function copyHTML(){
+      try{
+        await navigator.clipboard.writeText(document.documentElement.outerHTML);
+        alert('HTML copied to clipboard — paste into a file and save as hello_hannah_jael.html');
+      }catch(e){
+        alert('Unable to copy automatically. You can select and copy the page source manually.');
+      }
+    }
+  </script>
+</body>
+</html>
