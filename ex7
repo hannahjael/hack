@@ -1,0 +1,93 @@
+Kubernetes Deployment and Service for
+Python App from Docker Hub
+Goal: Deploy a simple Python web application stored in Docker Hub to a Kubernetes cluster
+using a Deployment and Service, and access it through Minikube.
+
+Prerequisites
+● Minikube and kubectl installed
+● Docker Desktop running
+● Internet connectivity to pull the Docker image from Docker Hub
+
+Setup Verification
+minikube start --driver=docker
+kubectl get nodes
+Ensure the node status is Ready.
+
+🧩 Step 1: Choose a Python Docker Image
+We’ll use a simple Python web app image hosted on Docker Hub.
+You can use any public Python web app image, such as:
+docker.io/python:3.9-slim
+or for demonstration, use a prebuilt sample (replace <username> with your Docker Hub
+username if using your own image):
+docker.io/dockersamples/flaskapp
+You can verify Docker Hub accessibility by:
+docker pull dockersamples/flaskapp
+
+🧩 Step 2: Create a Kubernetes Deployment
+Create a file named python-deployment.yaml:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+name: python-web-deployment
+labels:
+app: python-web
+spec:
+replicas: 2
+selector:
+matchLabels:
+app: python-web
+template:
+metadata:
+labels:
+app: python-web
+spec:
+containers:
+- name: python-web
+image: dockersamples/flaskapp:latest
+ports:
+- containerPort: 5000
+
+Apply the deployment:
+kubectl apply -f python-deployment.yaml
+Check status:
+kubectl get deployments
+kubectl get pods
+View details:
+kubectl describe deployment python-web-deployment
+
+🧩 Step 3: Expose Deployment as a Service
+Now expose your Python app using a NodePort Service.
+Create a file python-service.yaml:
+apiVersion: v1
+kind: Service
+metadata:
+name: python-web-service
+spec:
+type: NodePort
+selector:
+app: python-web
+ports:
+- protocol: TCP
+port: 5000
+targetPort: 5000
+Apply it:
+kubectl apply -f python-service.yaml
+Check if the service is created:
+kubectl get svc
+
+Get Minikube service URL:
+minikube service python-web-service --url
+Open the displayed URL in your browser. You should see the Python web app page.
+
+🧹 Step 4: Cleanup
+After the lab, clean up all created resources:
+If you want to stop or delete the cluster:
+minikube stop
+minikube delete
+
+🧾 Summary
+In this lab, you learned how to:
+1. Pull a containerized Python app from Docker Hub
+2. Deploy it on a Kubernetes cluster using a Deployment
+3. Expose it via a Service (NodePort)
+4. Access the running app through Minikube
